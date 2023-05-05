@@ -7,12 +7,11 @@ const srcCode = `
 
 <style>
 body {
-  background-color: black;
-  background-image: radial-gradient(
+	background-color: black;
+	background-image: radial-gradient(
     rgba(0, 150, 0, 0.75), black 120%
-  );
-  height: 100vh;
-
+	);
+	height: 100vh;
 }
 *{
 	margin:0;
@@ -42,8 +41,8 @@ body {
 }
 
 .canvas_wrap>button:hover {
-  background-color: black;
-  color: white;
+	background-color: black;
+	color: white;
 }
 
 }
@@ -54,8 +53,8 @@ body {
 (function(){
 	"use strict";
 	const canvas=document.getElementById("tetris");
-	const context=canvas.getContext("2d");
-	context.scale(20,20);
+	const ctx=canvas.getContext("2d");
+	ctx.scale(20,20);
 	let makeMatrix=function(w,h){
 		const matrix=[];
 		while(h--){
@@ -144,11 +143,12 @@ body {
 		matrix.forEach((row,y)=>{
 			row.forEach((value,x)=>{
 				if(value!==0){
-					// context.fillStyle=colors[value];
-					// context.fillRect(x+offset.x,y+offset.y,1,1);
-					let imgTag=document.createElement("IMG");
-					imgTag.src=colors[value];
-					context.drawImage(imgTag,x+offset.x,y+offset.y,1,1);
+					ctx.fillStyle=colors[value];
+					ctx.fillRect(x+offset.x,y+offset.y,1,1);
+					ctx.shadowColor = "rgba(8, 0, 0, .5)";
+					ctx.shadowBlur = 10;
+					ctx.shadowOffsetX = 5;
+					ctx.shadowOffsetY = 5;
 				}
 			});
 		});
@@ -223,9 +223,9 @@ body {
 		}
 	};
 	let draw=function(){
-		context.clearRect(0,0,canvas.width,canvas.height);
-		context.fillStyle="#000000";
-		context.fillRect(0,0,canvas.width,canvas.height);
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		ctx.fillStyle="#000000";
+		ctx.fillRect(0,0,canvas.width,canvas.height);
 		updateScore();
 		drawMatrix(area,{x:0,y:0});
 		drawMatrix(player.matrix,player.pos);
@@ -241,32 +241,32 @@ body {
 		draw();
 	};
 	let updateScore=function(){
-		context.font="bold 1px Inconsolata, monospace";
-		context.fillStyle="#ffffff";
-		context.textAlign="left";
-		context.textBaseline="top";
-		context.fillText(player.score,0.2,0);
+		ctx.font="bold 1px Inconsolata, monospace";
+		ctx.fillStyle="#ffffff";
+		ctx.textAlign="left";
+		ctx.textBaseline="top";
+		ctx.fillText(player.score,0.2,0);
 	};
 	let gameOver=function(){
 		clearInterval(gameLoop);
-		context.font="1.5px Inconsolata, monospace";
-		context.fillStyle="#ffffff";
-		context.textAlign="center";
-		context.textBaseline="middle";
-		context.fillText("game over",(canvas.width/20)/2,(canvas.width/20)/2);
-		context.font="4px Inconsolata, monospace";
-		context.fillText("😢",(canvas.width/20)/1.9,(canvas.width/20)/1);
+		ctx.font="1.5px Inconsolata, monospace";
+		ctx.fillStyle="#ffffff";
+		ctx.textAlign="center";
+		ctx.textBaseline="middle";
+		ctx.fillText("game over",(canvas.width/20)/2,(canvas.width/20)/2);
+		ctx.font="4px Inconsolata, monospace";
+		ctx.fillText("😢",(canvas.width/20)/1.9,(canvas.width/20)/1);
 		document.getElementById("start_game").disabled=false;
 	};
 	const colors=[
 		null,
-		"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5/hPwAIAgL/4d1j8wAAAABJRU5ErkJggg==",
-		"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkuP//PwAFpALfeqlbzwAAAABJRU5ErkJggg==",
-		"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8fwHwAFLwIOh28W+gAAAABJRU5ErkJggg==",
-		"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN0ecnwHwAE1AIuZgovtgAAAABJRU5ErkJggg==",
-		"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8v4rhPwAHAwKqSbSAoQAAAABJRU5ErkJggg==",
-		"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN0Yvj/HwAEDwJCMmgnsgAAAABJRU5ErkJggg==",
-		"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcxvD/PwAFXwKWLuL4TAAAAABJRU5ErkJggg=="
+		"blue",
+		"red",
+		"yellow",
+		"green",
+		"orange",
+		"purple",
+		"magenta"
 	];
 	const area=makeMatrix(12,20);
 	const player={
@@ -321,13 +321,13 @@ body {
 `;
 
 return (
-  <>
-    <iframe
-      srcDoc={srcCode}
-      style={{
-        height: "55vh",
-        width: "50%",
-      }}
-    ></iframe>
-  </>
+<>
+	<iframe
+		srcDoc={srcCode}
+		style={{
+			height: "55vh",
+			width: "50%",
+		}}
+	/>
+</>
 );

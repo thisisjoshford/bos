@@ -74,7 +74,7 @@ class Breakout extends Phaser.Scene
 
             if (this.ball.getData('onPaddle'))
             {
-                this.ball.setVelocity(-175, -400);
+                this.ball.setVelocity(-75, -300);
                 this.ball.setData('onPaddle', false);
             }
 
@@ -145,8 +145,8 @@ class Breakout extends Phaser.Scene
 
 const config = {
     type: Phaser.WEBGL,
-    width: 700,
-    height: 500,
+    width: 800,
+    height: 600,
     parent: 'phaser-example',
     scene: [ Breakout ],
     physics: {
@@ -164,8 +164,8 @@ return (
     <iframe
       srcDoc={srcCode}
       style={{
-        height: "500px",
-        width: "700px",
+        height: "70vh",
+        width: "100%",
       }}
     ></iframe>
   </>
